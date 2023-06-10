@@ -1,0 +1,27 @@
+<%= image_tag @item.get_image(400, 300 ) %>
+
+<table>
+  <th></th>
+    <tr>
+      <td><%= @item.name %></td>
+    </tr>
+    <tr>
+      <td><%= @item.introductio %></td>
+    </tr>
+    <tr>
+      <td><%= (@item.price + @item.price * 0.1).to_i.to_s(:delimited) %>
+      <span>(税込)</span>
+      </td>
+    </tr>
+</table>
+
+<%=form_with model: @cart_item, url: cart_items_path, method: :update do |f| %>
+
+<%= f.hidden_field :item_id, :value => @item.id %>
+
+<%= f.select :amount, *[1..10] %>
+
+<%= f.submit 'カートに入れる' %>
+
+<% end %>
+

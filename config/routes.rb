@@ -11,9 +11,13 @@ Rails.application.routes.draw do
 
   scope module: :public do
     
-    controller :home do
+    controller :homes do
       root to: 'homes#top'
       get 'homes/about' => "homes#about"
+    end
+    
+    controller :items do
+      resources :items, only: [:index, :show]
     end
     
     controller :customers do
@@ -24,6 +28,11 @@ Rails.application.routes.draw do
       patch '/customers/withdraw' => "customers#withdraw"
     end
     
+    controller :cart_items do
+      resources :cart_items, only: [:index, :update, :destory, :create]
+      delete '/cart_items/destroy_all' => "customers#destory_all"
+    end
+    
   end
   
 
@@ -31,6 +40,7 @@ Rails.application.routes.draw do
     
     resources :genres, only: [:index, :create, :edit, :update]
     
+    resources :items, only: [:index, :new, :create, :show, :edit, :update ]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
