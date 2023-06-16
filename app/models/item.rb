@@ -7,6 +7,9 @@ class Item < ApplicationRecord
   validates :genre_id,     presence: true
   validates :price,        presence: true
   
+  has_many :cart_items, dependent: :destroy
+  
+  belongs_to :genre
   
   def get_image(width, height)
     unless image.attached?
@@ -15,5 +18,11 @@ class Item < ApplicationRecord
     end
      image.variant(resize_to_limit: [width, height]).processed
   end
+  
+  
+  def with_tax_price
+    (price * 1.1).floor
+  end
+  
   
 end
