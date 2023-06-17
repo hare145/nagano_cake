@@ -6,6 +6,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def new
+    @order = Order.find()
   end
 
   def complete

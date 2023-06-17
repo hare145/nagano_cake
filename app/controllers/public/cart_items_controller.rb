@@ -1,7 +1,6 @@
 class Public::CartItemsController < ApplicationController
   def index
     @cart_items = current_customer.cart_items.all
-    @total = 0
   end
   
   def create
@@ -34,10 +33,12 @@ class Public::CartItemsController < ApplicationController
     render :index
   end
   
-  def destory_all
-    cart_items = current_customer.cart_items.all
+  
+  def destroy_all
+    cart_items = current_customer.cart_items
     cart_items.destroy_all
-    redirect_to cart_items_path
+    @cart_items = current_customer.cart_items.all
+    render :index
   end
   
   

@@ -29,15 +29,14 @@ Rails.application.routes.draw do
     end
     
     controller :cart_items do
+      delete '/cart_items/destroy_all' => "cart_items#destroy_all"
       resources :cart_items, only: [:index, :update, :destroy, :create]
-      delete '/cart_items/destroy_all' => "customers#destory_all"
     end
 
 
     controller :orders do
-      resources :orders, only: [:index, :show, :create]
-      delete '/cart_items/destroy_all' => "customers#destory_all"
       get 'orders/new' => "orders#new"
+      resources :orders, only: [:index, :show, :create]
       get 'orders/complete' => "orders#complete"
       post 'order/confirm' => "orders#confirm"
     end
@@ -60,6 +59,8 @@ Rails.application.routes.draw do
     resources :genres, only: [:index, :create, :edit, :update]
 
     resources :items, only: [:index, :new, :create, :show, :edit, :update ]
+    
+    resources :orders, only: [:show, :update]
     
     resources :customers, only: [:index, :show, :edit, :update ]
   end

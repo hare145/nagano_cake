@@ -1,0 +1,57 @@
+<h1>注文履歴詳細</h1>
+
+<table>
+  <tr>
+    <th>購入者</th>
+    <td><%= @order.full_name %></td>
+  </tr>
+
+  <tr>
+    <th>注文日</th>
+    <td><%= @order.created_at %></td>
+  </tr>
+
+  <tr>
+    <th>配送先</th>
+    <td><%= @order.postal_code %><% @order.address %></td>
+  </tr>
+  
+  <tr>
+    <th>支払方法</th>
+    <td> <%= @order.payment %></td>
+  </tr>
+  
+  <tr>
+    <th>注文ステータス</th>
+    <td> 
+    　<%= form_with model: @order, url: admin_order_path(@order), method: :patch do |f| %>
+        <%= f.select :oreder_status, *[0..4] %>
+        <%= f.submit '変更' %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>商品名</th>
+    <th>単価(税込)</th>
+    <th>数量</th>
+    <th>小計</th>
+    <th>制作ステータス</th>
+  </tr>
+   <% @order_details.each do |order_detail| %>
+    <tr>
+      <td><%= order_detail.item_id%></td>
+      <td><%= order_detail.with_tax_price %></td>
+      <td><%= order_detail.amount %></td>
+      <td><%= order_detail.subtotal %></td>
+      <td>
+        <%= form_with model: order_detail, url: admin_order_detail_path(order_detail), method: :patch do |f| %>
+          <%= f.select :product_status, *[0..3] %>
+          <%= f.submit '変更' %>
+        <% end %>
+        </td>
+    </tr>
+  <% end %>
+</table>
