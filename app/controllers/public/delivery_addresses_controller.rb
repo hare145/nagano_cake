@@ -30,7 +30,7 @@ class Public::DeliveryAddressesController < ApplicationController
   private
   
   def delivery_address_params
-    params.require(:delivery_address).permit(:postal_code, :address, :addressee)
+    params.require(:delivery_address).permit(:customer_id, :postal_code, :address, :addressee)
   end
   
 end
