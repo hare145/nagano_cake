@@ -8,24 +8,28 @@
 
   <tr>
     <th>注文日</th>
-    <td><%= @order.created_at %></td>
+    <td><%= l @order.created_at %></td>
   </tr>
 
   <tr>
     <th>配送先</th>
-    <td><%= @order.postal_code %><% @order.address %></td>
+    <td>
+      <%= @order.postal_code %></br>
+      <%= @order.address %></br>
+      <%= @order.full_name %>
+    </td>
   </tr>
   
   <tr>
     <th>支払方法</th>
-    <td> <%= @order.payment %></td>
+    <td> <%= Order.payment_methods_i18n[Order.payment_methods.key(@order.payment)] %></td>
   </tr>
   
   <tr>
     <th>注文ステータス</th>
     <td> 
     　<%= form_with model: @order, url: admin_order_path(@order), method: :patch do |f| %>
-        <%= f.select :oreder_status, *[0..4] %>
+        <%= f.select :oreder_status, Order.oreder_status_methods.keys.map.with_index {|k, i| [I18n.t("enums.order.oreder_status_method.#{k}"), i]} %>
         <%= f.submit '変更' %>
       <% end %>
     </td>
@@ -42,20 +46,21 @@
     
     <% total = 0 %>
   </tr>
-   <% @order_details.each do |order_detail| %>
+   <% @order_details.where(order_id: @order).each do |order_detail| %>
   <tr>
-    <td><%= order_detail.item_id%></td>
-    <td><%= order_detail.with_tax_price %></td>
+    <td><%= order_detail.item.name%></td>
+    <td><%= (order_detail.price * 1.1).floor.to_s(:delimited) %></td>
     <td><%= order_detail.amount %></td>
-    <td><%= order_detail.subtotal %></td>
+    <td><%= (order_detail.price * 1.1 * order_detail.amount).floor.to_s(:delimited) %></td>
     <td>
-      <%= form_with model: order_detail, url: admin_order_detail_path(order_detail), method: :patch do |f| %>
-        <%= f.select :product_status, *[0..3] %>
+      <%= form_with model: order_detail, url: admin_order_detail_path(order_detail.order_id), method: :patch do |f| %>
+        <%= f.select :product_status, OrderDetail.product_status_methods.keys.map.with_index {|k, i| [I18n.t("enums.order_detail.product_status_method.#{k}"), i]} %>
+        <%= f.hidden_field :item_id, :value => order_detail.item_id %>
         <%= f.submit '変更' %>
       <% end %>
     </td>
   </tr>
-   <% total += subtotal %>
+   <% total += (order_detail.price * 1.1 * order_detail.amount) %>
    <% end %>
 </table>
 
@@ -64,7 +69,7 @@
   <tr>
     <th>商品合計</th>
     <td> 
-    　<% total  %>
+    　<%= total.floor.to_s(:delimited)  %>
     </td>
   </tr>
   
@@ -78,7 +83,7 @@
   <tr>
     <th>請求金額</th>
     <td> 
-    　<%= total += 800 %>
+    　<%= (total += 800).floor.to_s(:delimited) %>
     </td>
   </tr>
   

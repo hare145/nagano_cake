@@ -5,13 +5,18 @@ class Admin::OrdersController < ApplicationController
   end
   
   def update
-    @order = Order.new
+    @order = Order.find(params[:id])
     @order.update(order_params)
-    redirect_to admin_order_path
+    redirect_to admin_order_path(@order)
   end
   
   
   
+  private
+  
+  def order_params
+    params.require(:order).permit(:oreder_status)
+  end
   
 end
 
