@@ -5,10 +5,10 @@
       <td><%= @item.name %></td>
     </tr>
     <tr>
-      <td><%= @item.introductio %></td>
+      <td><%= @item.introduction %></td>
     </tr>
     <tr>
-      <td><%= (@item.price * 1.1).to_i.to_s(:delimited) %>
+      <td><%= (@item.price * 1.1).floor.to_s(:delimited) %>
       <span>(税込)</span>
       </td>
     </tr>

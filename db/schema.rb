@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2023_06_05_150701) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: trued
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
   create_table "cart_items", force: :cascade do |t|
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 2023_06_05_150701) do
   create_table "items", force: :cascade do |t|
     t.integer "genre_id", null: false
     t.string "name", null: false
-    t.text "introductio", null: false
+    t.text "introduction", null: false
     t.integer "price", null: false
     t.boolean "is_sale", default: false
     t.datetime "created_at", precision: 6, null: false
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 2023_06_05_150701) do
     t.string "address", null: false
     t.string "full_name", null: false
     t.integer "payment", null: false
-    t.integer "oreder_status", null: false
+    t.integer "order_status", null: false
     t.integer "invoice_amount", null: false
     t.integer "postage", null: false
     t.datetime "created_at", precision: 6, null: false

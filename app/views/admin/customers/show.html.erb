@@ -1,6 +1,5 @@
 
-
-<h1><%= @customer.last_name %><%= @customer.first_name %>の会員詳細</h1>
+<h1><%= @customer.customer_full_name %>の会員詳細</h1>
 
 <table>
     <tr>
@@ -10,12 +9,12 @@
   
     <tr>
       <th>氏名</th>
-      <td><%= @customer.last_name %>  <%= @customer.first_name %></td>
+      <td><%= @customer.customer_full_name %></td>
     </tr>
     
     <tr>
       <th>フリガナ</th>
-      <td><%= @customer.last_name_kana %>  <%= @customer.first_name_kana %></td>
+      <td><%= @customer.customer_full_name_kana %></td>
     </tr>
     
     <tr>
