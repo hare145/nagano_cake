@@ -16,7 +16,7 @@
 
 <p>ジャンル</p>
 
-<%= f.select :genre_id, options_from_collection_for_select(Genre.all, :id, :name) %>
+<%= f.select :genre_id, options_from_collection_for_select(@genres, :id, :name) %>
 
 <P>税抜価格</P>
 
