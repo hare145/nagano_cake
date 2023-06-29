@@ -1,20 +1,37 @@
-<h1>商品一覧</h1>
+<% if current_page? "/items?genre_id=#{params[:genre_id]}" %>
 
-<p>(全<%= @item_count %>件)</p>
+<h1>こっち</h1>
 
-<% @items.each do |item| %>
-
-<table>
-  <th><%= link_to image_tag(item.get_image(200, 100 )), item_path(item.id) %></th>
-    <tr>
-      <td><%= item.name %></td>
-    </tr>
-    <tr>
-      <td>　
-        <span>￥</span>
-        <%= (item.price * 1.1).floor.to_s(:delimited) %>
-      </td>
-    </tr>
-</table>
-
+<% else %>
+  <h1>商品一覧</h1>
+  
+  <p>(全<%= @item_count %>件)</p>
+  
+  <div class="container">
+    <div class="row">
+      <% @items.each do |item| %>
+      <table class="table table-borderless col-3 ">
+        <th>
+          <%= link_to image_tag(item.get_image(200, 100 )), item_path(item.id) %>
+        </th>
+          <tr>
+            <div class="text-left">
+              <td>
+                <%= item.name %>
+              </td>
+            </div>
+          </tr>
+          <tr>
+            <div class="text-left">
+              <td>
+                ￥<%= (item.price * 1.1).floor.to_s(:delimited) %>
+              </td>
+            </div>
+          </tr>
+      </table>
+      <% end %>
+    </div>
+  </div>
 <% end %>
+
+<%= paginate @items %>
