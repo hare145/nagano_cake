@@ -1,0 +1,12 @@
+<table class = "table border" >
+  <th class = "border-bottom text-center pl-5 pr-5">
+      ジャンル検索
+  </th>
+  <% genres.each do |genre| %>
+  <tr class = "table-light">
+    <td class ="pl-4">
+      <%= link_to genre.name, items_path(genre_id: genre.id) %>
+    </td>
+  </tr>
+  <% end %>
+</table>
