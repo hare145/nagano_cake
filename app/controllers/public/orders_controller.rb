@@ -46,6 +46,7 @@ class Public::OrdersController < ApplicationController
         @order_detail.product_status = 0
         @order_detail.save
       end
+      @cart_items.destroy_all
     end  
     redirect_to orders_complete_path
   end
