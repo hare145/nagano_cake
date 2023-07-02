@@ -1,17 +1,115 @@
-<p>会員情報編集</p>
+<div class="h-75">
+  <div class="container mt-5 mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        <h4 class="bg-secondary text-center">会員情報編集</h4>
+      </div>
+    </div>
+  </div>
 
-<%= form_with model: @customer, url: customers_information_path do |f| %>
-
-  <h4>氏名</h4>
-  <%= f.text_field :last_name %>
-  <%= f.text_field :first_name %>
+  <%= form_with model: @customer, url: customers_information_path do |f| %>
   
-  <h4>フリガナ</h4>
-  <%= f.text_field :last_name_kana %>
-  <%= f.text_field :first_name_kana %>
+  <div class="container">
+    <div class = "form-group row">
+      <div class = "col-3">
+        氏名
+      </div>
+      <div class="col-1">
+      </div>
+      <div class = "col-2 pl-0">
+        <%= f.text_field :last_name, class: "p-0 form-control" %>
+      </div>
+      <div class = "col-2 pr-0">
+        <%= f.text_field :first_name, class: "p-0 form-control" %>
+      </div>
+      <div class = "col-4">
+      </div>
+    </div>
+  </div>
+    
+  <div class="container">
+    <div class = "form-group row">
+      <div class = "col-3">
+        フリガナ
+      </div>
+      <div class="col-1">
+      </div>
+      <div class="col-2 pl-0">
+        <%= f.text_field :last_name_kana, class: "p-0 form-control" %>
+      </div>
+      <div class="col-2 pr-0">
+        <%= f.text_field :first_name_kana, class: "p-0 form-control" %>
+      </div>
+      <div class = "col-4">
+      </div>
+    </div>
+  </div>
   
-  <%= f.submit '編集内容を保存' %>
+  <div class="container">
+    <div class = "form-group row">
+      <%= f.label :postal_code, "郵便番号(ハイフンなし)", class: "col-3 col-form-label" %>
+      <div class = "col-1">
+      </div>
+      <div class = "col-2 p-0">
+        <%= f.text_field :postal_code, class: "p-0 form-control" %>
+      </div>
+      <div class = "col-6">
+      </div>
+    </div>
+  </div>
   
-  <%= link_to "退会する", customers_unsubscribe_path %>
+  <div class="container">
+    <div class = "form-group row">
+      <%= f.label :address, "住所", class: "col-3 col-form-label" %>
+      <div class = "col-1">
+      </div>
+      <div class = "col-6 p-0">
+        <%= f.text_field :address, class: "p-0 form-control" %>
+      </div>
+    </div>
+  </div>
   
-<% end %>
+  <div class="container">
+    <div class = "form-group row">
+      <%= f.label :telephone_number, "電話番号(ハイフンなし)", class: "col-3 col-form-label" %>
+      <div class = "col-1">
+      </div>
+      <div class = "col-2 p-0">
+        <%= f.telephone_field :telephone_number, class: "p-0 form-control" %>
+      </div>
+      <div class = "col-6">
+      </div>
+    </div>
+  </div>
+    
+  <div class="container">
+    <div class = "form-group row">
+      <%= f.label :email, "メールアドレス", class: "col-3 col-form-label" %>
+      <div class = "col-1">
+      </div>
+      <div class = "col-2 p-0">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "p-0 form-control" %>
+      </div>
+      <div class = "col-6">
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class = "form-group row">
+      <div class="col-4">
+      </div>
+      <div class = "col-3 p-0">
+        <%= f.submit '編集内容を保存',class: "p-0 form-control btn btn-success" %>
+      </div>
+      <div class = "col-2">
+      </div>
+      <div class="col-2 text-center">
+        <%= link_to "退会する", customers_unsubscribe_path,class: "form-control btn btn-danger" %>
+      </div>
+      <div class="row mt-5 pt-5 mb-5 pb-5">
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

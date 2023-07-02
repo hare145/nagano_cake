@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="https://kit.fontawesome.com/5a199eb244.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
 
-  <body class = "d-flex flex-column h-100 m-2 border">
+  <body class = "d-flex flex-column vh-100 m-2 border">
     <header>
       <nav class = "navbar navbar-expand-md navbar-light border-bottom">
         <div class = "container">
@@ -87,7 +87,7 @@
       </nav>
     </header>
     <%= yield %>
-    <footer class = "border-top p-5">
+    <footer class = "border-top p-4">
     </footer>
   </body>
 </html>

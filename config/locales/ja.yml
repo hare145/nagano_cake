@@ -19,5 +19,10 @@ ja:
         pending: "制作待ち"
         production: "製作中"
         complete: "製作完了"
-
-
+  views:
+    pagination:
+      first: '<<First'
+      last: 'Last>>'
+      previous: '<pre'
+      next: 'Next>'
+      truncate: '...'

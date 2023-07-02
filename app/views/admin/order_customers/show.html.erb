@@ -1,23 +1,46 @@
-<h1><%= @order_customer.customer.customer_full_name %>さんの注文履歴</h1>
+<div class="h-75">
+  <div class="container mt-5 mb-4">
+    <div class = "row">
+      <div class = "col-4">
+        <h4 class="bg-secondary text-center"><%= @order_customer.customer.customer_full_name %>さんの注文履歴</h4>
+      </div>
+     </div>
+   </div>
 
-<table>
-  <tr>
-    <th>購入日時</th>
-    <th>注文個数</th>
-    <th>注文ステータス</th>
-  </tr>
-   <% @order.each do |order| %>
-    <tr>
-      <td><%= link_to order.created_at.strftime('%Y/%m/%d %H:%M:%S'), admin_order_path(order.id) %></td>
-      <td>
-        <% total = 0 %>
-        <% OrderDetail.where(order_id: order).each do |order_detail| %>
-          <% order_detail.amount %>
-          <% total += order_detail.amount %>
+<div class="container">
+    <div class="row">
+      <table class="table">
+        <thead class="thead-light">
+        <tr>
+          <th class="col-5">購入日時</th>
+          <th class="col-3">注文個数</th>
+          <th class="col-4">注文ステータス</th>
+        </tr>
+         <% @order.each do |order| %>
+          <tr>
+            <td>
+              <u><%= link_to order.created_at.strftime('%Y/%m/%d %H:%M:%S'), admin_order_path(order.id), class: "text-dark" %><u>
+            </td>
+            <td>
+              <% total = 0 %>
+              <% OrderDetail.where(order_id: order).each do |order_detail| %>
+                <% order_detail.amount %>
+                <% total += order_detail.amount %>
+              <% end %>
+                <%= total %>
+              </td>
+            <td><%= Order.order_status_methods_i18n[Order.order_status_methods.key(order.order_status) ] %></td>
+          </tr>
         <% end %>
-          <%= total %>
-        </td>
-      <td><%= Order.oreder_status_methods_i18n[Order.oreder_status_methods.key(order.oreder_status) ] %></td>
-    </tr>
-  <% end %>
-</table>
+      </table>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="row justify-content-center mb-3">
+      <%= paginate @order %>
+    </div>
+    <div class="row mt-5 ">
+    </div>
+  </div>
+</div>

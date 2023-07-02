@@ -1,34 +1,55 @@
-<h1>商品詳細</h1>
-
-<%= image_tag @item.get_image(300, 400) %>
-
-<table>
-  <tr>
-    <th>商品名</th>
-    <td><%= @item.name %></td>
-  </tr>
-
-  <tr>
-    <th>商品説明</th>
-    <td><%= @item.introduction %></td>
-  </tr>
-
-  <tr>
-    <th>ジャンル</th>
-    <td><%= Genre.find(@item.id).name %></td>
-  </tr>
-  
-  <tr>
-    <th>税込価格</br>
-    (税抜価格)
-    </th>
-    <td> <%= (@item.price * 1.1).to_i.to_s(:delimited) %> (<%= @item.price.to_s(:delimited) %>) 円</td>
-  </tr>
-  
-  <tr>
-    <th>販売ステータス</th>
-    <td><%= @item.is_sale ? '販売中' : '販売停止中' %></td>
-  </tr>
-</table>
-
-<%= link_to "編集する", edit_admin_item_path(@item.id) %>
+<div class="h-75">
+  <div class="container mt-5 mb-5">
+    <div class = "row">
+      <div class = "col-2">
+        <h4 class="bg-secondary text-center">商品詳細</h4>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-5">
+        <%= image_tag @item.get_image(400, 300 ) %>
+      </div>
+      <div class="col-7">
+        <table class="table table-borderless">
+       　  <tr>
+            <th>商品名</th>
+            <td><%= @item.name %></td>
+          </tr>
+          <tr>
+            <th>商品説明</th>
+            <td><%= @item.introduction %></td>
+          </tr>
+          <tr>
+            <th>ジャンル</th>
+            <td><%= Genre.find(@item.genre_id).name %></td>
+          </tr>
+          <tr>
+            <th>税込価格</br>
+            (税抜価格)
+            </th>
+            <td> <%= (@item.price * 1.1).to_i.to_s(:delimited) %> (<%= @item.price.to_s(:delimited) %>) 円</td>
+          </tr>
+          <tr>
+            <th>販売ステータス</th>
+            <% if @item.is_sale == true %>
+              <td class="text-success">販売中</td>
+            <% elsif @item.is_sale == false %>
+              <td class="text-secondary">販売停止中</td>
+            <% else %>
+              <td>なし</td>
+　　　      <% end %>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-3 mb-3">
+    <div class="row justify-content-center">  
+      <div class="col-2">
+        <%= link_to "編集する", edit_admin_item_path(@item.id), class: "btn btn-success btn-block" %>
+      </div>
+    </div>
+  </div>
+</div>
