@@ -1,48 +1,121 @@
-
-<h1><%= @customer.customer_full_name %>の会員詳細</h1>
-
-<table>
-    <tr>
-      <th>会員ID</th>
-      <td><%= @customer.id %></td>
-    </tr>
+<div class="h-75">
+  <div class="container mt-5 mb-4">
+    <div class = "row">
+      <div class = "col-4">
+        <h4 class="bg-secondary text-center"><%= @customer.customer_full_name %>さんの会員詳細</h4>
+      </div>
+    </div>
+  </div>
   
-    <tr>
-      <th>氏名</th>
-      <td><%= @customer.customer_full_name %></td>
-    </tr>
+  <div class="container mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        会員ID
+      </div>
+      <div class = "col-3">
+        <%= @customer.id %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        氏名
+      </div>
+      <div class = "col-3">
+        <%= @customer.customer_full_name %>
+      </div>
+    </div>
+  </div>
     
-    <tr>
-      <th>フリガナ</th>
-      <td><%= @customer.customer_full_name_kana %></td>
-    </tr>
+  <div class="container mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        フリガナ
+      </div>
+      <div class = "col-3">
+        <%= @customer.customer_full_name_kana %>
+      </div>
+    </div>
+  </div>
     
-    <tr>
-      <th>郵便番号</th>
-      <td><%= @customer.postal_code %></td>
-    </tr>
+  <div class="container mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        郵便番号
+      </div>
+      <div class = "col-3">
+        <%= @customer.postal_code %>
+      </div>
+    </div>
+  </div>
     
-    <tr>
-      <th>住所</th>
-      <td><%= @customer.address %></td>
-    </tr>
+  <div class="container mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        住所
+      </div>
+      <div class = "col-3">
+        <%= @customer.address %>
+      </div>
+    </div>
+  </div>      
+  
     
-    <tr>
-      <th>電話番号</th>
-      <td><%= @customer.telephone_number %></td>
-    </tr>
+  <div class="container mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        電話番号
+      </div>
+      <div class = "col-3">
+        <%= @customer.telephone_number %>
+      </div>
+    </div>
+  </div>  
     
-    <tr>
-      <th>メールアドレス</th>
-      <td><%= @customer.email %></td>
-    </tr>
+  <div class="container mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        メールアドレス
+      </div>
+      <div class = "col-3">
+        <%= @customer.email %>
+      </div>
+    </div>
+  </div>  
     
-    <tr>
-      <th>会員ステータス</th>
-      <td><%= @customer.is_deleted ? '退会' : '有効' %></td>
-    </tr>
-</table>
+  <div class="container mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        会員ステータス
+      </div>
+      <div class = "col-3">
+        <% if @customer.is_deleted == true %>
+          <div class="text-secondary">退会</div>
+        <% elsif @customer.is_deleted == false %>
+          <div class="text-success">有効</div>
+        <% else %>
+          <div>なし</div>
+　　　  <% end %>
+      </div>
+    </div>
+  </div>  
 
-<%= link_to "編集する", edit_admin_customer_path(@customer) %>
-
-<%= link_to "注文履歴一覧を見る", admin_root_path %>
+ <div class="container mb-4">
+    <div class = "row">
+      <div class="col-3">
+      </div>
+      <div class="col-2">
+        <%= link_to "編集する", edit_admin_customer_path(@customer), class: "form-control btn btn-success" %>
+      </div>
+      <div class="col-1">
+      </div>
+      <div class="col-3">
+        <%= link_to "注文履歴一覧を見る", admin_root_path, class: "form-control btn btn-primary" %>
+      </div class="col-3">
+      <div>
+      </div>
+    </div>
+  </div>  
+</div>

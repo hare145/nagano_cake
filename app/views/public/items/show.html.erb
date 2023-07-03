@@ -1,13 +1,13 @@
-<div class="d-flex h-75">
-  <div class="p-0 mt-4 ml-4">
-   <%= render 'public/shared/genre', genres: @genres %>
-  </div>
+<div class="h-75">
   <div class="container m-5">
-    <div class="row">
-      <div class="col-5">
-        <%= image_tag @item.get_image(400, 300 ) %>
+   <div class="row">
+      <div class="col-3">
+        <%= render 'public/shared/genre', genres: @genres %>
       </div>
-      <div class="col-7">
+      <div class="col-4">
+        <%= image_tag @item.get_image(300, 300 ) %>
+      </div>
+      <div class="col-5">
         <table class="table table-borderless">
           <tr class="h2 pb-3">
             <td>
@@ -26,22 +26,22 @@
             </td>
           </tr>
           </table>
-        </div>
-    </div>
-    
-    <%=form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
-    <%= f.hidden_field :item_id, :value => @item.id %>
-    <div class="form-group row">
-      <div class="col-5">
-      </div>
-        <div class="col-3">
-          <%= f.select :amount, *[1..10], {include_blank: "個数選択"}, class: 'form-control' %>
-        </div>
-        <div class="col-3">
-          <%= f.submit 'カートに入れる', class: "btn btn-success form-control" %>
-        </div>
-        <% end %>
+  
+          <%=form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+          <%= f.hidden_field :item_id, :value => @item.id %>
+          <div class="form-group row">
+            <div class="col-5 ml-3">
+              <%= f.select :amount, *[1..10], {include_blank: "個数選択"}, class: 'form-control' %>
+            </div>
+            <div class="col-1">
+            </div>
+            <div class="col-5">
+              <%= f.submit 'カートに入れる', class: "btn btn-success form-control" %>
+            </div>
+          </div>
+          <% end %>
       </div>
     </div>
   </div>
 </div>
+

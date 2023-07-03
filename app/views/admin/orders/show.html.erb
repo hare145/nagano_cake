@@ -1,90 +1,136 @@
-<h1>注文履歴詳細</h1>
+<div class="h-75">
+  <div class="container mt-5 mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        <h4 class="bg-secondary text-center">注文履歴詳細</h4>
+      </div>
+    </div>
+  </div>
 
-<table>
-  <tr>
-    <th>購入者</th>
-    <td><%= @order.customer.customer_full_name %></td>
-  </tr>
+  <div class="container mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        購入者
+      </div>
+      <div class = "col-3">
+        <u>
+          <%= link_to @order.customer.customer_full_name, admin_customer_path(@order.customer_id), class: "text-dark" %>
+        </u>
+      </div>
+    </div>
+  </div>
 
-  <tr>
-    <th>注文日</th>
-    <td><%= l @order.created_at %></td>
-  </tr>
-
-  <tr>
-    <th>配送先</th>
-    <td>
-      <%= @order.postal_code %></br>
-      <%= @order.address %></br>
-      <%= @order.full_name %>
-    </td>
-  </tr>
+  <div class="container mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        注文日
+      </div>
+      <div class = "col-3">
+        <%= l @order.created_at %>
+      </div>
+    </div>
+  </div>
   
-  <tr>
-    <th>支払方法</th>
-    <td> <%= Order.payment_methods_i18n[Order.payment_methods.key(@order.payment)] %></td>
-  </tr>
-  
-  <tr>
-    <th>注文ステータス</th>
-    <td> 
-    　<%= form_with model: @order, url: admin_order_path(@order), method: :patch do |f| %>
-        <%= f.select :order_status, Order.order_status_methods.keys.map.with_index {|k, i| [I18n.t("enums.order.order_status_method.#{k}"), i]} %>
-        <%= f.submit '変更' %>
-      <% end %>
-    </td>
-  </tr>
-</table>
 
-<table>
-  <tr>
-    <th>商品名</th>
-    <th>単価(税込)</th>
-    <th>数量</th>
-    <th>小計</th>
-    <th>制作ステータス</th>
-    
-    <% total = 0 %>
-  </tr>
-   <% @order_details.where(order_id: @order).each do |order_detail| %>
-  <tr>
-    <td><%= order_detail.item.name%></td>
-    <td><%= (order_detail.price * 1.1).floor.to_s(:delimited) %></td>
-    <td><%= order_detail.amount %></td>
-    <td><%= (order_detail.price * 1.1 * order_detail.amount).floor.to_s(:delimited) %></td>
-    <td>
-      <%= form_with model: order_detail, url: admin_order_detail_path(order_detail.order_id), method: :patch do |f| %>
-        <%= f.select :product_status, OrderDetail.product_status_methods.keys.map.with_index {|k, i| [I18n.t("enums.order_detail.product_status_method.#{k}"), i]} %>
-        <%= f.hidden_field :item_id, :value => order_detail.item_id %>
-        <%= f.submit '変更' %>
-      <% end %>
-    </td>
-  </tr>
-   <% total += (order_detail.price * 1.1 * order_detail.amount) %>
-   <% end %>
-</table>
+  <div class="container mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        配送先
+      </div>
+      <div class = "col-3">
+        <%= @order.postal_code %></br>
+        <%= @order.address %></br>
+        <%= @order.full_name %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container mb-4">
+    <div class = "row">
+      <div class = "col-3">
+        支払方法
+      </div>
+      <div class = "col-3">
+        <%= Order.payment_methods_i18n[Order.payment_methods.key(@order.payment)] %>
+      </div>
+    </div>
+  </div>
+  
+  <%= form_with model: @order, url: admin_order_path(@order), method: :patch do |f| %>
+  <div class="container mb-4">
+    <div class = "form-group row">
+      <%= f.label :order_status, "注文ステータス", class: "col-3 col-form-label" %>
+      <div class = "col-2">
+        <%= f.select :order_status, Order.order_status_methods.keys.map.with_index {|k, i| [I18n.t("enums.order.order_status_method.#{k}"), i]}, {},class: 'form-control' %>
+      </div>
+      <div class="col-1">
+          <%= f.submit '更新', class: "btn btn-success btn-block" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
-
-<table>
-  <tr>
-    <th>商品合計</th>
-    <td> 
-    　<%= total.floor.to_s(:delimited)  %>
-    </td>
-  </tr>
-  
-  <tr>
-    <th>送料</th>
-    <td> 
-    　<%= 800 %>
-    </td>
-  </tr>
-  
-  <tr>
-    <th>請求金額</th>
-    <td> 
-    　<%= (total += 800).floor.to_s(:delimited) %>
-    </td>
-  </tr>
-  
-</table>
+ <div class="container">
+    <div class="row">
+      <div class="col-9">
+        <table class="table table-borderless">
+          <thead class="thead-light">
+            <th class="col-4">商品名</th>
+            <th class="col-2">単価(税込)</th>
+            <th class="col-1">数量</th>
+            <th class="col-1">小計</th>
+            <th class="col-4">制作ステータス</th>
+          </thead>
+          <% total = 0 %>
+          </tr>
+           <% @order_details.where(order_id: @order).each do |order_detail| %>
+          <tr>
+            <td><%= order_detail.item.name%></td>
+            <td><%= (order_detail.price * 1.1).floor.to_s(:delimited) %></td>
+            <td><%= order_detail.amount %></td>
+            <td><%= (order_detail.price * 1.1 * order_detail.amount).floor.to_s(:delimited) %></td>
+            <td>
+              <%= form_with model: order_detail, url: admin_order_detail_path(order_detail.order_id), method: :patch do |f| %>
+                <div class="container">
+                  <div class = "form-group row">
+                    <div class="col-7 p-0">
+                      <%= f.select :product_status, OrderDetail.product_status_methods.keys.map.with_index {|k, i| [I18n.t("enums.order_detail.product_status_method.#{k}"), i]}, {}, class: 'form-control' %>
+                    </div>
+                      <%= f.hidden_field :item_id, :value => order_detail.item_id %>
+                    <div class="col-5 pl-3">
+                      <%= f.submit '更新', class: "btn btn-success btn-block" %>
+                    </div>
+                  </div>  
+                </div>
+              <% end %>
+            </td>
+          </tr>
+           <% total += (order_detail.price * 1.1 * order_detail.amount) %>
+           <% end %>
+        </table>
+      </div>
+      <div class="col-3 align-self-end">
+        <table class="table table-borderless mb-4">
+          <tr>
+            <th>商品合計</th>
+            <td  class="text-right"> 
+            　<%= total.floor.to_s(:delimited)  %>円
+            </td>
+          </tr>
+          <tr>
+            <th>送料</th>
+            <td  class="text-right"> 
+            　<%= 800 %>円
+            </td>
+          </tr>
+          <tr>
+            <th>請求金額合計</th>
+            <td class="font-weight-bold text-right"> 
+            　<%= (total += 800).floor.to_s(:delimited) %>円
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
