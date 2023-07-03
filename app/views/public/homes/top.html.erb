@@ -42,7 +42,7 @@
     <% @items.each do |item| %>
     <table class="table table-borderless col-2">
       <th>
-        <%= image_tag item.get_image(200, 100 ) %>
+        <%= link_to image_tag(item.get_image(200, 100 )), item_path(item.id) %>
       </th>
         <tr>
           <div class="text-left">

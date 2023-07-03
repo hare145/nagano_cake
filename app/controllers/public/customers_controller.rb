@@ -1,4 +1,5 @@
 class Public::CustomersController < ApplicationController
+before_action :authenticate_customer!
 
 def show
 end
@@ -17,8 +18,8 @@ def unsubscribe
 end
 
 def withdraw
-    @customer = User.find(current_customer.id)
-    @user.update(is_deleted: true)
+    @customer = Customer.find(current_customer.id)
+    @customer.update(is_deleted: true)
     reset_session
     redirect_to root_path
 end

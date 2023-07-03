@@ -1,4 +1,6 @@
 class Public::DeliveryAddressesController < ApplicationController
+  before_action :authenticate_customer!
+  
   def index
     @delivery_address = DeliveryAddress.new
     @delivery_addresses = DeliveryAddress.all

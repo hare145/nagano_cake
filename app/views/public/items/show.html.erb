@@ -27,18 +27,20 @@
           </tr>
           </table>
   
-          <%=form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
-          <%= f.hidden_field :item_id, :value => @item.id %>
-          <div class="form-group row">
-            <div class="col-5 ml-3">
-              <%= f.select :amount, *[1..10], {include_blank: "個数選択"}, class: 'form-control' %>
+          <% if customer_signed_in? %>
+            <%=form_with model: @cart_item, url: cart_items_path, method: :post do |f| %>
+            <%= f.hidden_field :item_id, :value => @item.id %>
+            <div class="form-group row">
+              <div class="col-5 ml-3">
+                <%= f.select :amount, *[1..10], {include_blank: "個数選択"}, class: 'form-control' %>
+              </div>
+              <div class="col-1">
+              </div>
+              <div class="col-5">
+                <%= f.submit 'カートに入れる', class: "btn btn-success form-control" %>
+              </div>
             </div>
-            <div class="col-1">
-            </div>
-            <div class="col-5">
-              <%= f.submit 'カートに入れる', class: "btn btn-success form-control" %>
-            </div>
-          </div>
+            <% end %>
           <% end %>
       </div>
     </div>
